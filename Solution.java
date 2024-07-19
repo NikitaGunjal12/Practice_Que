@@ -54,6 +54,54 @@ class Solution {
         System.out.println(BinarySearch(arr, key));
     }
 }*/
+
+
+
+
+/*
+Given an m x n matrix of distinct numbers, return all lucky numbers in the matrix in any order.
+
+A lucky number is an element of the matrix such that it is the minimum element in its row and maximum in its column.
+Example 1:
+Input: matrix = [[3,7,8],[9,11,13],[15,16,17]]
+Output: [15]
+Explanation: 15 is the only lucky number since it is the minimum in its row and the maximum in its column.
+class Solution {
+    public List<Integer> luckyNumbers(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        HashSet<Integer> minRows = new HashSet<>();
+        HashSet<Integer> maxCols = new HashSet<>();
+
+        // Find the minimum value in each row
+        for (int i = 0; i < rows; i++) {
+            int minVal = matrix[i][0];
+            for (int j = 0; j < cols; j++) {
+                minVal = Math.min(minVal, matrix[i][j]);
+            }
+            // Store the minimum in set
+            minRows.add(minVal);
+        }
+
+        // Find the maximum value in each column
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < cols; i++) {
+            int maxVal = matrix[0][i];
+            for (int j = 0; j < rows; j++) {
+                maxVal = Math.max(maxVal, matrix[j][i]);
+            }
+            if (minRows.contains(maxVal)) {
+                res.add(maxVal);
+            }
+            // Store the maximum in set
+            maxCols.add(maxVal);
+        }
+
+        return res;
+    }
+}
+
+ */
     
 
 
