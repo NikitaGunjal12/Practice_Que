@@ -193,6 +193,94 @@ class Solution {
      }
 }
  */
+
+/*Example :5
+Build a Matrix with Conditions
+Input: k = 3, rowConditions = [[1,2],[3,2]], colConditions = [[2,1],[3,2]]
+
+Output: [[3,0,0],[0,0,1],[0,2,0]]
+
+Explanation: The diagram above shows a valid example of a matrix that satisfies all the conditions.
+The row conditions are the following:
+- Number 1 is in row 1, and number 2 is in row 2, so 1 is above 2 in the matrix.
+- Number 3 is in row 0, and number 2 is in row 2, so 3 is above 2 in the matrix.
+The column conditions are the following:
+- Number 2 is in column 1, and number 1 is in column 2, so 2 is left of 1 in the matrix.
+- Number 3 is in column 0, and number 2 is in column 1, so 3 is left of 2 in the matrix.
+Note that there may be multiple correct answers.
+
+class Solution {
+    int[] topoSort(int V, int pairs[][]) 
+    {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<=V;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int pair[] : pairs){
+            int u = pair[0];
+            int v = pair[1];
+            adj.get(u).add(v);
+        }
+        // add your code here
+        int indegree[] = new int[V+1]; //0
+        for(int u=0;u<adj.size();u++){
+            for(int v : adj.get(u)){
+                indegree[v]++;
+            }
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=1;i<=V;i++){
+            if(indegree[i]==0){
+                queue.offer(i);
+            }
+        }
+        //3
+
+        ArrayList<Integer> res = new ArrayList<>();
+        while(!queue.isEmpty()){
+            int node = queue.poll();
+            res.add(node);
+            for(int neighbour : adj.get(node)){
+                indegree[neighbour]--;
+                if(indegree[neighbour]==0){
+                    queue.offer(neighbour);
+                }
+            }
+        }
+        
+        if(res.size() != V){
+            return new int[0];
+        }
+        
+        int ans[] = new int[V];
+        for(int i=0;i<V;i++){
+            ans[i] = res.get(i);
+        }
+        return ans;
+    }
+    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {
+        int rowToposort[] =  topoSort(k, rowConditions);
+        if(rowToposort.length==0){
+            return new int[0][0];
+        }
+        int colToposort[] =  topoSort(k, colConditions);
+        if(colToposort.length==0){
+            return new int[0][0];
+        }
+        int matrix[][] = new int[k][k];
+        for(int i=0;i<k;i++){
+            for(int j=0;j<k;j++){
+                if(rowToposort[i] == colToposort[j]){
+                    matrix[i][j] = colToposort[j];
+                }
+            }   
+        }
+        return matrix;
+
+    }
+}
+
+*/
     
 
 
