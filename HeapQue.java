@@ -204,8 +204,163 @@ public class NearByCars {
     }
     
 }
+*/
+//Example 5:
+/*
+ import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class PQForObject {
+    static class Student implements Comparable<Student>{
+        String name;
+        int rank;
+        public Student (String name, int rank){
+            this.name = name;
+            this.rank = rank;
+        }
+        @Override
+        public int compareTo(Student s2){
+            return this.rank - s2.rank;
+        }
+    }
+        public static void main(String[]args){
+         //PriorityQueue<Student> pq = new PriorityQueue<>(Comparator.reverseOrder());
+         PriorityQueue<Student> pq = new PriorityQueue<>();
+         pq.add(new Student( "A",4));
+         pq.add(new Student( "B",5));
+         pq.add(new Student( "C",3));
+         pq.add(new Student( "D",2));
+ 
+         while(!pq.isEmpty()){
+             System.out.println(pq.peek().name+" -> " + pq.peek().rank);
+             pq.remove();
+         }
+     }
+ 
+ }
+ */
+
+ //Example 6:
+ /*
+  import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class PriorityQueueBasic{
+    public static void main(String[]args){
+       // PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        pq.add(3);
+        pq.add(4);
+        pq.add(1);
+        pq.add(7);
+
+        while(!pq.isEmpty()){
+            System.out.println(pq.peek());
+            pq.remove();
+        }
+    }
+
+}
+*/
+
+//Example 7:
+/*
+ import java.util.*;
+public class SlidingWindow {
+    static class Pair implements Comparable<Pair>{
+        int val;
+        int idx;
+
+        public Pair(int val, int idx){
+            this.val = val;
+            this.idx = idx;
+        }
+        @Override
+        public int compareTo(Pair p2){
+            //ascending
+            //return this.val - p2.val;
+            return p2.val - this.val;
+        }
+    }
+    public static void main(String[]args){
+        int arr[] = {1,3,-1,-3,5,3,6,7};
+        int k=3;
+        int res[] = new int[arr.length-k+1];
+
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+
+        //1st window
+        for(int i=0; i<k; i++){
+            pq.add(new Pair(arr[i], i));
+        }
+        res[0] = pq.peek().val;
+
+        for(int i=k; i<arr.length; i++){
+            while(pq.size() > 0 && pq.peek().idx <= (i-k)){
+                pq.remove();
+            }
+            pq.add(new Pair(arr[i], i));
+            res[i-k+1] = pq.peek().val;  //window number [i-k+1]
+        }
+        //print result
+        for(int i=0; i<res.length; i++){
+            System.out.print(res[i]+ " ");
+        }
+        System.out.println();
+    }
+    
+}
 
  */
+//Example 8:
+/*
+ import java.util.*;
+
+public class WeakestSoldier {
+    static class Row implements Comparable<Row>{
+        int soldiers;
+        int idx;
+
+        public Row(int soldiers, int idx){
+            this.soldiers = soldiers;
+            this.idx  = idx;
+        }
+        @Override
+        public int compareTo(Row r2){
+            if(this.soldiers == r2.soldiers){
+                return this.idx - r2.idx;
+
+            }else{
+                return this.soldiers -r2.soldiers;
+            }
+        }
+    }
+    public static void main(String[]args){
+        int army[][]= {{1, 0, 0, 0},
+                       {1, 1, 1, 1},
+                       {1, 0, 0, 0},
+                       {1, 0, 0, 0}};
+
+        int k=2;
+        PriorityQueue<Row> pq = new PriorityQueue<>();
+        for(int i=0; i<army.length; i++){
+            int count = 0;
+            for(int j=0; j<army[0].length; j++){
+                count += army[i][j] == 1 ? 1: 0;
+            }
+            pq.add(new Row(count, i));
+        }
+        for(int i=0; i<k; i++){
+            System.out.println("R" +pq.remove().idx);
+        }
+    }
+    
+}
+
+ */
+
+
 
  
  
